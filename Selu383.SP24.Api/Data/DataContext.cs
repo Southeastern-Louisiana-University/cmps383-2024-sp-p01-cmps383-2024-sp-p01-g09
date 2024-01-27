@@ -15,8 +15,19 @@ namespace Selu383.SP24.Api.Data
 
         public DbSet<Hotel> Hotels { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder  modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Hotel>()
+                .Property(x => x.Id)
+                .IsRequired();
 
+            modelBuilder.Entity<Hotel>()
+                .Property(x => x.Name)
+                .IsRequired();
+
+            modelBuilder.Entity<Hotel>()
+                .Property(x => x.Address)
+                .IsRequired();
         }
     }
+}

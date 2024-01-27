@@ -60,7 +60,7 @@ namespace Selu383.SP24.Api.Controllers
 
               = hotelGetDto;
 
-            return Ok(new Hotel());
+            return Ok();
         }
     }
 }
