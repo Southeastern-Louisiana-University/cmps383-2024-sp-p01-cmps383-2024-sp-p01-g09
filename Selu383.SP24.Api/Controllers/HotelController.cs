@@ -3,7 +3,7 @@ using Selu383.SP24.Api.Entities;
 using Selu383.SP24.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Selu383.SP24.Api.Features;
 
 
 
@@ -21,6 +21,46 @@ namespace Selu383.SP24.Api.Controllers
 
         [HttpGet]
 
-        
+        public IActionResult GetAll()
+        {
+           
+            var hotelsFromDatabase = _dataContext
+                .Hotels
+                .Select(x => new HotelDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Address = x.Address
+                })
+                .ToList();
+            
+            return Ok(new List<Hotel>());
+        }
+
+        [HttpGet("{id:int}")]
+        public IActionResult GetById([FromRoute] int id)
+        {
+            var hotel = _dataContext
+                .Hotels
+                .FirstOrDefault(x => x.Id == id);
+
+            if (hotel == null)
+            {
+                return NotFound("hotel does not exist");
+            }
+
+            var hotelGetDto = new HotelDto 
+            {
+                
+                Id = hotel.Id,
+                Name = hotel.Name,
+                Address = hotel.Address
+            
+            };
+
+              = hotelGetDto;
+
+            return Ok(new Hotel());
+        }
     }
 }
