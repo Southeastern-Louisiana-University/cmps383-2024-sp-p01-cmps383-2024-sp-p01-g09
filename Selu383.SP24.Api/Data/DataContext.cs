@@ -1,4 +1,4 @@
-﻿using Selu383.SP24.Api.Entities;
+using Selu383.SP24.Api.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
