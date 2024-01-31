@@ -1,12 +1,33 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Selu383.SP24.Api.Entities;
+using Microsoft.EntityFrameworkCore;
+
+
+
 
 namespace Selu383.SP24.Api.Data
 {
-    public class DataContext:DbContext
+    public sealed class DataContext : DbContext
     {
+        public DataContext(DbContextOptions<DataContext> options)
+            : base(options)
+        {
+        }
 
-        public DataContext(DbContextOptions<DataContext> options) :base (options) { }
+        public DbSet<Hotel> Hotels { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Hotel>()
+                .Property(x => x.Id)
+                .IsRequired();
 
+            modelBuilder.Entity<Hotel>()
+                .Property(x => x.Name)
+                .IsRequired();
+
+            modelBuilder.Entity<Hotel>()
+                .Property(x => x.Address)
+                .IsRequired();
+        }
     }
 }
