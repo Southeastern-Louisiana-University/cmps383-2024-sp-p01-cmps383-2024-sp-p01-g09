@@ -16,29 +16,19 @@ namespace Selu383.SP24.Api.Controllers
         private readonly DataContext _dataContext;
         public HotelController(DataContext dataContext)
         {
-            _dataContext = dataContext;
+            this._dataContext = dataContext;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
 
-        public IActionResult GetAll()
+        public List<Hotel> GetAll()
         {
            
-            var hotelsFromDatabase = _dataContext
-                .Hotels
-                .Select(x => new HotelDto
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Address = x.Address
-                })
-                .ToList();
-            
-            return Ok(new List<Hotel>());
+            return _dataContext.Set<Hotel>().ToList();
         }
 
         [HttpGet("{id:int}")]
-        public IActionResult GetById([FromRoute] int id)
+        public ActionResult<Hotel> GetById(int id)
         {
             var hotel = _dataContext
                 .Hotels
@@ -49,18 +39,7 @@ namespace Selu383.SP24.Api.Controllers
                 return NotFound("hotel does not exist");
             }
 
-            var hotelGetDto = new HotelDto 
-            {
-                
-                Id = hotel.Id,
-                Name = hotel.Name,
-                Address = hotel.Address
-            
-            };
-
-              = hotelGetDto;
-
-            return Ok();
+            return hotel;
         }
     }
 }
