@@ -17,17 +17,21 @@ namespace Selu383.SP24.Api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Hotel>()
                 .Property(x => x.Id)
                 .IsRequired();
 
             modelBuilder.Entity<Hotel>()
                 .Property(x => x.Name)
+                .HasMaxLength(50)
                 .IsRequired();
 
             modelBuilder.Entity<Hotel>()
                 .Property(x => x.Address)
                 .IsRequired();
+            
         }
     }
 }

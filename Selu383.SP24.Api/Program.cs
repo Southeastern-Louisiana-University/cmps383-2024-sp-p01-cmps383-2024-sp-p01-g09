@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Selu383.SP24.Api.Data;
+using Selu383.SP24.Api.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,31 @@ var app = builder.Build();
 {
     var db = scope.ServiceProvider.GetRequiredService<DataContext>();
     db.Database.Migrate();
+
+    if (!db.Hotels.Any())
+    {
+        db.Hotels.Add(new Hotel
+        {
+            Name = "hotel",
+            Address = "123 hotel st"
+        });
+
+        db.Hotels.Add(new Hotel
+        {
+            Name = "hotel2",
+            Address = "456 hotel st"
+        });
+
+        db.Hotels.Add(new Hotel
+        {
+            Name = "hotel3",
+            Address = "789 hotel st"
+        });
+
+        db.SaveChanges();
+    }
+
+    
 }
 
 

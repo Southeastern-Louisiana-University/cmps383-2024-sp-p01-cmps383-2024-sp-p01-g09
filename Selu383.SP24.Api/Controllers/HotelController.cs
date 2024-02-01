@@ -23,7 +23,6 @@ namespace Selu383.SP24.Api.Controllers
 
         public List<Hotel> GetAll()
         {
-           
             return _dataContext.Set<Hotel>().ToList();
         }
 
